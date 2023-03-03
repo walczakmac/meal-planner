@@ -24,3 +24,10 @@ insert into plan_meal(plan_id, meal_variant_id) values($1, $2);
 
 -- name: FindPlanByDate :one
 select * from plan where date = $1;
+
+-- name: FindMealByProductName :many
+select meal.*, mv.kcal from meal
+left join meal_variant mv on meal.id = mv.meal_id
+left join ingredient i on mv.id = i.meal_variant_id
+left join product p on i.product_id = p.id
+where lower(p.name) like $1;
