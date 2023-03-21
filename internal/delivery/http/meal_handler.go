@@ -4,26 +4,26 @@ import (
 	"database/sql"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
-	"meal-planner/internal/adapters"
+	"meal-planner/internal/infrastructure"
 	"meal-planner/internal/service"
 	"meal-planner/queries"
 )
-import nethttp "net/http"
+import "net/http"
 
 type MealHandler struct {
 	mealsService service.MealsService
 }
 
 func InitMealHandler(r *chi.Mux, db *sql.DB) {
-	q := queries.New(db)
-
 	handler := &MealHandler{
-		mealsService: service.NewMealsService(adapters.NewPostgresqlMealRepository(q)),
+		mealsService: service.NewMealsService(
+			infrastructure.NewPostgresqlMealRepository(queries.New(db)),
+		),
 	}
 	r.Get("/meals", handler.listMeals)
 }
 
-func (h MealHandler) listMeals(w nethttp.ResponseWriter, r *nethttp.Request) {
+func (h MealHandler) listMeals(w http.ResponseWriter, r *http.Request) {
 	filter := service.MealFilter{}
 	product := r.URL.Query().Get("product")
 	if product != "" {

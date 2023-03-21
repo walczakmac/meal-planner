@@ -2,13 +2,13 @@
 select * from meal;
 
 -- name: FindMealVariants :many
-select * from meal_variant where meal_id = $1;
+select mv.*, m.* from meal_variant mv inner join macro m on mv.id = m.meal_variant_id where mv.meal_id = $1;
 
 -- name: FindMacro :one
 select * from macro where meal_variant_id = $1;
 
 -- name: FindIngredients :many
-select i.*, p.name as product_name from ingredient i left join product p on p.id = i.product_id where i.meal_variant_id = $1;
+select i.amount, i.unit, i.snack, p.name from ingredient i inner join product p on p.id = i.product_id where i.meal_variant_id = $1;
 
 -- name: FindAllProducts :many
 select * from product;

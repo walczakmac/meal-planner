@@ -20,5 +20,5 @@ func (u MealsService) ListMeals(ctx context.Context, filter MealFilter) []domain
 		return u.meals.FindMealsByProduct(ctx, filter.Product)
 	}
 
-	return []domain.Meal{}
+	return u.meals.FindAllMeals(ctx)
 }
