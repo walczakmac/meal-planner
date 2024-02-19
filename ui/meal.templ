@@ -1,0 +1,13 @@
+package ui
+
+import "meal-planner/ui/layout"
+
+templ Meal(name string, description string) {
+    @layout.Base() {
+        <div id="meal-view">
+            <h2>{ name }</h2>
+            <p>{ description }</p>
+            <a href="/">Wróć do listy</a>
+        </div>
+    }
+}

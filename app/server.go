@@ -1,4 +1,4 @@
-package server
+package app
 
 import (
 	"github.com/go-chi/chi/v5"
@@ -11,7 +11,7 @@ type Server struct {
 	router *chi.Mux
 }
 
-func New(r *chi.Mux) *Server {
+func NewServer(r *chi.Mux) *Server {
 	server := &Server{router: r}
 	server.initMiddlewares()
 

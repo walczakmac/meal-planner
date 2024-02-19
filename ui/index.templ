@@ -1,0 +1,18 @@
+package ui
+
+import "meal-planner/data"
+import "meal-planner/ui/layout"
+
+templ Index(list []data.MealListRow) {
+    @layout.Base() {
+        <div id="meal-list">
+            <ul>
+                for _, item := range list {
+                    <li>
+                        <a href="/meal/{ item.id }">{ item.Name }</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

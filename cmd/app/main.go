@@ -3,17 +3,15 @@ package main
 import (
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
-	"meal-planner/internal/app"
+	"meal-planner/app"
 )
 
-func init() {
+func main() {
 	viper.SetConfigFile("configs/main.yml")
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)
 	}
-}
 
-func main() {
 	app.Run()
 }
